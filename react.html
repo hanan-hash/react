@@ -15,106 +15,7 @@
       theme: {
         extend: {
           colors: {
-            'blue': {
-                   DEFAULT: '#3B82F6',
-                     50: '#D5E4FD',
-                    100: '#C4D9FC',
-                    200: '#A1C3FB',
-                    300: '#7FAEF9',
-                    400: '#5D98F8',
-                    500: '#3B82F6',
-                    600: '#0B61EE',
-                    700: '#084BB8',
-                    800: '#063583',
-                    900: '#041F4D',
-                    950: '#021532',
-            },
-                'french-rose': {
-                   DEFAULT: '#EC4899',
-                    50: '#FDEEF6',
-                    100: '#FBDCEB',
-                    200: '#F8B7D7',
-                    300: '#F492C2',
-                    400: '#F06DAE',
-                    500: '#EC4899',
-                    600: '#E4187D',
-                    700: '#B11261',
-                    800: '#7F0D45',
-                    900: '#4C0829',
-                     950: '#32051B'
-                },
-                   'half-baked': {
-                 DEFAULT: '#87BDCB',
-                 50: '#E7F5F0',
-                 100: '#DDF0EB',
-                 200: '#C7E7E2',
-                 300: '#B2DDDC',
-                 400: '#9DCFD4',
-                 500: '#87BDCB',
-                 600: '#5697B5',
-                 700: '#3C6688',
-                 800: '#263B56',
-                 900: '#101724',
-                 950: '#05070C'
-                },                
-                  'red': {
-                 DEFAULT: '#EB0000',
-                 50: '#FFA3A3',
-                 100: '#FF8F8F',
-                  200: '#FF6666',
-                 300: '#FF3D3D',
-                 400: '#FF1414',
-                 500: '#EB0000',
-                 600: '#B30000',
-                 700: '#7A0000',
-                 800: '#420000',
-                 900: '#0A0000',
-                 950: '#000000'
-                },
-                  'vista-blue': {
-                 DEFAULT: '#96D9A6',
-                  50: '#96D9A6',
-                 100: '#96D9AB',
-                 200: '#96D9B6',
-                 300: '#96D9C2',
-                 400: '#96D9CD',
-                 500: '#96D9D8',
-                 600: '#96CFD9',
-                 700: '#96C4D9',
-                 800: '#96B9D9',
-                 900: '#96AED9',
-                 950: '#96A8D9'
-                }, 
-                 'blue-chalk': {
-                 DEFAULT: '#F8E5FF',
-                 50: '#F8E5FF',
-                 100: '#FAE5FF',
-                 200: '#FEE5FF',
-                 300: '#FFE5FC',
-                 400: '#FFE5F7',
-                 500: '#FFE5F3',
-                 600: '#FFE5EF',
-                 700: '#FFE5EB',
-                 800: '#FFE5E6',
-                 900: '#FFE9E5',
-                 950: '#FFEBE5'
-                },
-                  'dodger-blue': {
-            DEFAULT: '#6B7280',
-               50: '#E3E5E8',
-              100: '#D8DADF',
-              200: '#C2C5CC',
-              300: '#ACB0BA',
-              400: '#969BA7',
-              500: '#7F8694',
-              600: '#6B7280',
-              700: '#515761',
-              800: '#383C43',
-              900: '#1E2024',
-              950: '#121315'
-       },
-
-       'dodger-blue': {
+              'dodger-blue': {
                 DEFAULT: '#3B82F6',
                 50: '#A9BAFB',
                 100: '#9DB2FA',
@@ -128,8 +29,6 @@
                 900: '#042B4D',
                 950: '#021D32'
                 },
-
-
             }           
           }
         } 
@@ -149,9 +48,39 @@
         const Example = () => {
             const [count, setCount] = React.useState(0);
             React.useEffect(() => {
-                document
-            })
-        }
+                document.title = `You clicked ${count} times`;
+            }),
+            return (
+                <div>
+                    <p>You clicked {count} times</p>
+                    <button  onClick={() => setCount(count + 1)}>
+                        Click me
+                        </button>
+                        </div>
+            );
+        };
+
+        // style becomes objects, its not a string anymore, if it string your application will not render
+        // example
+        // <div style='width:30px; heigh:30px'> this will not render in react
+        // <div style={{'width':30px, 'flexDirection':30px}}
+
+        // class becomes className, it will remain string
+        //example
+        // <div class="px-2 py-2 w-10"> this will not render
+        // <div className="px-2 py-2 w-10">
+
+        const PriceBox = ({price, discounted_price}) => {
+            const calculatePrice = discounted_price < price;
+            if(calculatePrice) {
+                return (
+                    <div className="text-dodger-blue-950">
+                        <span className="text-dodger-blue-800 line-through">{ price }</span>
+                        { discounted_price }
+                        </div>
+                )
+            } 
+        }    
     </script>
         <div className="bg-dodger-blue-400 p-3 ">
             <h1 className="text-dodger-blue-950 text-6xl">Header</h1>
@@ -160,7 +89,7 @@
             <div className="w-100 box-border p-8 bg bg-dodger-blue-900 ;">
                 <h1 className="dodger-blue-500 text-6xl">Sidebar</h1>
             </div>
-            <div id='mainBox' className='flex-1 flex gap-10p-6 bg-orange-100'>
+            <div id='mainBox' className='flex-1 flex gap-10p-6 bg-dodger-blue-100'>
                 <div className=' bg-dodger-blue-600 grid-item slideDown' style='width: 30%;'>
                     <form id='taskForm' onsubmit='event.preventDefault();' style='display: flex; flex-direction:column; gap: 4px;'>
                       <label>Checkout Form</label>
@@ -602,27 +531,27 @@ console.log(result); // 10
         function renderProducts() {
             let productHtml = '';
             var productDiv = document.getElementById('main');
- 
-            products.forEach((x) => {
-                var priceBox = x.discounted_price < x.price ? `<div className='actual-price'>
-                        <span className='discount-price'> `+x.price+`</span>
-                        `+x.discounted_price+`
-                    </div>` : `<div className='actual-price'>
-                        `+x.price+`
-                    </div>` ;
- 
- 
-                productHtml += `<div className='grid-item slideDown'>
-                    <h1>`+ x.name +`</h1>
-                    <p>`+ x.description +`</p>
-                    `+ priceBox +`
-                    <div className='addToCartBox p-4 bg-dodger-blue-900'>
-                        <input type='number' id='qty`+ x.id +`'/>
-                        <button onclick='addToCart(`+x.id+`)'>Add to Cart</button>
- 
-                    </div>
-                </div>`; 
-            });
+
+    products.forEach((x) => {
+        var priceBox = x.discounted_price < x.price ? `<div className='actual-price'>
+                <span className='discount-price'> `+x.price+`</span>
+                `+x.discounted_price+`
+            </div>` : `<div className='actual-price'>
+                `+x.price+`
+            </div>` ;
+
+
+        productHtml += `<div className='grid-item slideDown'>
+            <h1>`+ x.name +`</h1>
+            <p>`+ x.description +`</p>
+            `+ priceBox +`
+            <div className='addToCartBox p-4 bg-dodger-blue-900'>
+                <input type='number' id='qty`+ x.id +`'/>
+                <button onclick='addToCart(`+x.id+`)'>Add to Cart</button>
+
+            </div>
+        </div>`; 
+    }); 
             productDiv.innerHTML = productHtml;
         }
  
